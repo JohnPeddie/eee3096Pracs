@@ -13,6 +13,8 @@
 /* Includes */
 #include"stdio.h"
 #include"math.h"
+#include "Timer.h"
+#include "Timer.cpp"
 
 #define DEBUG_LEVEL 0
    /* DEBUG_LEVEL indicates how much debug information you want
@@ -38,6 +40,7 @@ double F (double x)
 int main()
 /** Main function, entry point to the application. */
 {
+    tic();
     int iter = ITERATIONS; // iteration number
     // Print intro information
     printf("Calculate bisection method in C\n Function: ");
@@ -84,5 +87,6 @@ int main()
       }
     }
     // Display the appriximated root found
+    toc();
     printf("The approximation to the root is %lf\n",r);
 }
