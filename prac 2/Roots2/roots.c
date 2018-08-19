@@ -13,6 +13,8 @@
 /* Includes */
 #include"stdio.h"
 #include"math.h"
+#include "Timer.h"
+#include "Timer.cpp"
 
 #define DEBUG_LEVEL 0
    /* DEBUG_LEVEL indicates how much debug information you want
@@ -26,18 +28,19 @@ double F (double x)
 /** This is the function for which you want to find roots
     specify the function you have implemented in F_STRING */
 {
-    #define F_STRING "x^3 + 3*x - 5 = 0"
+    #define F_STRING "3*x^3 + 3*x^2 - 5 = 0"
     // specify two approximations. low and high value to search
     #define DEFAULT_X1  -10
     #define DEFAULT_X2  10
     // specify the number of iterations
     #define ITERATIONS 10
-    return(pow(x,3)+3*x-5);//This return the value of the function
+    return(3*(pow(x,3))+3*pow(x,2)-5);//This return the value of the function
 }
 
 int main()
 /** Main function, entry point to the application. */
 {
+    tic();
     int iter = ITERATIONS; // iteration number
     // Print intro information
     printf("Calculate bisection method in C\n Function: ");
@@ -84,5 +87,6 @@ int main()
       }
     }
     // Display the appriximated root found
+    printf("The time it took is %lf\n", toc());
     printf("The approximation to the root is %lf\n",r);
 }
