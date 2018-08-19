@@ -87,6 +87,6 @@ int main()
       }
     }
     // Display the appriximated root found
-    toc();
+    printf("The time it took is %lf\n", toc());
     printf("The approximation to the root is %lf\n",r);
 }
