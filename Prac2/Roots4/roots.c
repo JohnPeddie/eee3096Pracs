@@ -33,7 +33,7 @@ double F (double x)
     #define DEFAULT_X1  -10
     #define DEFAULT_X2  10
     // specify the number of iterations
-    #define ITERATIONS 10
+    #define ITERATIONS 21
     return(2*pow(x,5) + 3*pow(x,4) + 5*pow(x,3) - 13*pow(x,2) - 5*x +2);//This return the value of the function
 }
 

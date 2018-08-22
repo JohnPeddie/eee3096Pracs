@@ -40,7 +40,7 @@ double F (double x)
 int main()
 /** Main function, entry point to the application. */
 {
-    tic();
+    tic(); //Begins the timer
     int iter = ITERATIONS; // iteration number
     // Print intro information
     printf("Calculate bisection method in C\n Function: ");
@@ -87,6 +87,6 @@ int main()
       }
     }
     // Display the appriximated root found
-    printf("The time it took is %lf\n", toc());
+    printf("The time it took is %lf\n", toc()); //ends the timer and outputs the time
     printf("The approximation to the root is %lf\n",r);
 }
