@@ -49,16 +49,16 @@ while True:
     input_state = GPIO.input(buttonOn)
     if input_state == False:
         print('Turning On')
-	state = True
-        PWM.start(100)
+		state = True
+    PWM.start(100)
 	time.sleep(0.2)
-    while state == True:	
-		
+    while state == True:
+
         inBright = GPIO.input(buttonBright)
-	if inBright == False:
-		upBrightness()
-		time.sleep(0.2)
-	inDim = GPIO.input(buttonDim)
+		if inBright == False:
+			upBrightness()
+			time.sleep(0.2)
+		inDim = GPIO.input(buttonDim)
         if inDim == False:
                 downBrightness()
                 time.sleep(0.2)
@@ -68,4 +68,3 @@ while True:
 		state = False
 		time.sleep(0.2)
 		break
-
