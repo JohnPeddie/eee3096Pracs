@@ -67,9 +67,9 @@ def main():
 						
 					
 
-		else:
-			#print("Device is now in unsecure mode")
-			print("unsecure")
+			else:
+				#print("Device is now in unsecure mode")
+				print("unsecure")
 
 def clearHistory(channel):
 	global log,dirr,startpoint,count,running
