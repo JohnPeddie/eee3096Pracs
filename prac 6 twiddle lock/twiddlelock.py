@@ -52,7 +52,7 @@ def clearHistory(channel):
 def toggleMode(channel):
 	global mode
 	print("Mode changed")
-	mode +=1
+	lockMode +=1
 
 
 
