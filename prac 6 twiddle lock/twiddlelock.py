@@ -14,6 +14,7 @@ log=[]
 dirr=[""]
 startpoint = 0
 count = time.time()
+masterCode = "L4R4L4"
 #ADC PINS
 SPICLK = 11
 SPIMISO = 9
@@ -22,7 +23,7 @@ SPICS = 8
 
 
 def main():
-	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count
+	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode
 	state = "locked"
 	initPins(sline, mode, uline, lline)
 	#initADC()
@@ -55,7 +56,10 @@ def main():
 						count = time.time()
 				if (time.time()-count >1):
 					print("code entered")
-					print(dirr)
+					if (directionsToCodeSEC(dirr)==masterCode):
+						print("unlocked")
+					else:
+						print("code incorrect")
 					clearHistory(0)
 
 		else:
@@ -70,8 +74,8 @@ def clearHistory(channel):
 	dirr = [""]
 	count = time.time()
 
-	
-	
+
+
 def toggleMode(channel):
 	global lockMode
 	print("Mode changed")
@@ -102,6 +106,30 @@ def getData():
 
 
 	return potV
+
+def directionsToCodeSEC(dirr):
+	#['', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'left', 'right', 'right', 'right', 'right']
+	new = dirr[1:]
+	new.append("stop")
+	c = 0
+	start = new[0]
+	priv =start
+	string = ""
+
+	for i in new:
+   		if (priv != i):
+       		string = string +str(c)
+       		c =0
+   		if (i == "left" and c ==0):
+       		string = string + "L"
+   		if (i == "right" and c ==0):
+       		string = string + "R"
+   		if (i == "left"):
+       		c+=1
+   		if (i == "right"):
+       		c +=1
+   		priv = i
+	return string
 
 
 def Sort(combination):
