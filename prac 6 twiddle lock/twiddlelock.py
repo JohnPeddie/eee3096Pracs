@@ -36,7 +36,7 @@ def main():
 
 			if (lockMode & 1):#odd therefore secure
 				#print("Device is now in secure mode")
-
+				#secure
 				if (len(log) >=1):
 
 
