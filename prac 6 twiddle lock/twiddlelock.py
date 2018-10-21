@@ -60,7 +60,7 @@ def clearHistory(channel):
 	print("sline pressed")
 	startpoint = getData()
 	log = [startpoint]
-	dirr = []
+	dirr = [""]
 
 def toggleMode(channel):
 	global lockMode
