@@ -15,6 +15,7 @@ dirr=[""]
 startpoint = 0
 count = time.time()
 masterCode = "L4R4L4"
+running = 0
 #ADC PINS
 SPICLK = 11
 SPIMISO = 9
@@ -23,56 +24,61 @@ SPICS = 8
 
 
 def main():
-	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode
+	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode,running
 	state = "locked"
 	initPins(sline, mode, uline, lline)
 	#initADC()
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
 	GPIO.add_event_detect(mode, GPIO.FALLING, callback=toggleMode, bouncetime=200)
+	
+	while (0):
+		while(running == 0):
+
+			if (lockMode & 1):#odd therefore secure
+				#print("Device is now in secure mode")
+
+				if (len(log) >=1):
 
 
-	while(1):
+					current = getData()
+					if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
 
-		if (lockMode & 1):#odd therefore secure
-			#print("Device is now in secure mode")
+						if (current > log[-1]):
 
-			if (len(log) >=1):
+							log.append(current)
+							print("left")
+							dirr.append("left")
+							count = time.time()
+						elif (current < log[-1]):
 
-
-				current = getData()
-				if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
-
-					if (current > log[-1]):
-
-						log.append(current)
-						print("left")
-						dirr.append("left")
-						count = time.time()
-					elif (current < log[-1]):
-
-						log.append(current)
-						print("right")
-						dirr.append("right")
-						count = time.time()
-				if (time.time()-count >1):
-					print("code entered")
-					if (directionsToCodeSEC(dirr)==masterCode):
-						print("unlocked")
-					else:
-						print("code incorrect")
-					clearHistory(0)
+							log.append(current)
+							print("right")
+							dirr.append("right")
+							count = time.time()
+					if (time.time()-count >1):
+						print("code entered")
+						if (directionsToCodeSEC(dirr)==masterCode):
+							print("unlocked")
+							running = 1
+							
+						else:
+							print("code incorrect")
+							running =1
+						
+					
 
 		else:
 			#print("Device is now in unsecure mode")
 			print("unsecure")
 
 def clearHistory(channel):
-	global log,dirr,startpoint,count
+	global log,dirr,startpoint,count,running
 	print("sline pressed")
 	startpoint = getData()
 	log = [startpoint]
 	dirr = [""]
 	count = time.time()
+	running = 0
 
 
 
