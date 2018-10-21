@@ -32,13 +32,14 @@ def main():
 	while(1):
 		if (lockMode & 1):#odd therefore secure
 			#print("Device is now in secure mode")
-			current = getData()
-			if (current > log[len(log)-1]):
-				dirr.append("left")
-				print("left")
-			else:
-				dirr.append("Right")
-				print("Right")
+			if len(log >=1):
+				current = getData()
+				if (current > log[len(log)-1]):
+					dirr.append("left")
+					print("left")
+				else:
+					dirr.append("Right")
+					print("Right")
 		else:
 			#print("Device is now in unsecure mode")
 			print("unsecure")
