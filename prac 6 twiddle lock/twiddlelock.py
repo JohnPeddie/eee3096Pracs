@@ -36,11 +36,11 @@ def main():
 			#print("Device is now in secure mode")
 
 			if (len(log) >=1):
-				
-				
+
+
 				current = getData()
 				if (current != log[-1] +0.1 or current != log[-1] -0.1):
-					
+
 					if (current > log[len(log)-1]):
 
 						if (dirr[-1]!="left"):
@@ -53,8 +53,11 @@ def main():
 							print("right")
 							dirr.append("right")
 							count = time.time()
-				if (time.time()-count >1):	
-					print(count)
+				if (time.time()-count >1):
+					print("code entered")
+					print(dirr)
+					clearHistory()
+
 		else:
 			#print("Device is now in unsecure mode")
 			print("unsecure")
