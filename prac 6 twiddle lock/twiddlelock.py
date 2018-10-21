@@ -32,9 +32,9 @@ def main():
 	while(1):
 		print(getData())
 		time.sleep(1)
-		if (mode & 1):#odd therefore secure
+		#if (mode & 1):#odd therefore secure
 			#do secure stuff
-		else:
+		#else:
 			#do unsecure stuff
 			#adc turns
 			#log.append(adcTime)
