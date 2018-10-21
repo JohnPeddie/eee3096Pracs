@@ -89,3 +89,6 @@ def Sort(combination):
         combination[pos] = temp
 
     return combination
+
+if __name__ == '__main__':
+	main()
