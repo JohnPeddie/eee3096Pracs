@@ -39,7 +39,7 @@ def main():
 
 
 				current = getData()
-				if (current != log[-1] +0.1 or current != log[-1] -0.1):
+				if (current != log[-1] +0.5 or current != log[-1] -0.5):
 
 					if (current > log[len(log)-1]):
 
