@@ -53,10 +53,7 @@ def main():
 							dirr.append("right")
 							count = time.time()
 					
-				timer = round(time.time()-count,0)
-				print(timer)
-				if (timer > 1):
-					print(dirr)
+				print(count)
 		else:
 			#print("Device is now in unsecure mode")
 			print("unsecure")
