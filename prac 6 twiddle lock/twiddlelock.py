@@ -30,20 +30,27 @@ def main():
 
 
 	while(1):
+
 		if (lockMode & 1):#odd therefore secure
 			#print("Device is now in secure mode")
+
 			if (len(log) >=1):
+				count = time.time()
 				current = getData()
-				if (current > log[len(log)-1]):
-					dirr.append("left")
-					print("left")
-				else:
-					dirr.append("Right")
-					print("Right")
+				if (current != log[len(log)-1] +0.1 or current != log[len(log)-1] -0.1):
+					if (current > log[len(log)-1]):
+						dirr.append("left")
+						print("left")
+					else:
+						dirr.append("Right")
+						print("Right")
+				timer = round(time.time()-count,0)
+				if (timer > 1):
+					print(dirr)
 		else:
 			#print("Device is now in unsecure mode")
 			print("unsecure")
-		time.sleep(1)
+
 def clearHistory(channel):
 	global log,dirr,startpoint
 	print("sline pressed")
