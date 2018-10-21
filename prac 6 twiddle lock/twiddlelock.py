@@ -26,7 +26,7 @@ def main():
 	initPins(sline, mode, uline, lline)
 	#initADC()
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
-	GPIO.add_event_detect(toggleMode, GPIO.FALLING, callback=toggleMode, bouncetime=200)
+	GPIO.add_event_detect(mode, GPIO.FALLING, callback=toggleMode, bouncetime=200)
 
 
 	while(1):
