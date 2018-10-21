@@ -56,7 +56,7 @@ def main():
 				if (time.time()-count >1):
 					print("code entered")
 					print(dirr)
-					clearHistory()
+					clearHistory(0)
 
 		else:
 			#print("Device is now in unsecure mode")
@@ -70,6 +70,8 @@ def clearHistory(channel):
 	dirr = [""]
 	count = time.time()
 
+	
+	
 def toggleMode(channel):
 	global lockMode
 	print("Mode changed")
