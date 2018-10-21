@@ -41,13 +41,13 @@ def main():
 				current = getData()
 				if (current != log[-1] +0.5 or current != log[-1] -0.5):
 
-					if (current > log[len(log)-1]):
+					if (current > log[-1]):
 
 						if (dirr[-1]!="left"):
 							print("left")
 							dirr.append("left")
 							count = time.time()
-					else:
+					elif (current < log[-1]):
 
 						if (dirr[-1]!="right"):
 							print("right")
