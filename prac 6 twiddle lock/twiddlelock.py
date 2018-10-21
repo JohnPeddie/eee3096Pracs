@@ -43,16 +43,16 @@ def main():
 
 					if (current > log[-1]):
 
-						if (dirr[-1]!="left"):
-							print("left")
-							dirr.append("left")
-							count = time.time()
+						
+						print("left")
+						dirr.append("left")
+						count = time.time()
 					elif (current < log[-1]):
 
-						if (dirr[-1]!="right"):
-							print("right")
-							dirr.append("right")
-							count = time.time()
+						
+						print("right")
+						dirr.append("right")
+						count = time.time()
 				if (time.time()-count >1):
 					print("code entered")
 					print(dirr)
