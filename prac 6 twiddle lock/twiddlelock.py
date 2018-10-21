@@ -39,17 +39,17 @@ def main():
 
 
 				current = getData()
-				if (current > log[-1] +0.2 or current < log[-1] -0.2):
+				if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
 
 					if (current > log[-1]):
 
-						
+						log.append(current)
 						print("left")
 						dirr.append("left")
 						count = time.time()
 					elif (current < log[-1]):
 
-						
+						log.append(current)
 						print("right")
 						dirr.append("right")
 						count = time.time()
