@@ -61,12 +61,12 @@ def initPins(sline, toggleMode, uline, lline):
 	print("Pins initialised")
 
 def getData():
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(SPIMOSI, GPIO.OUT)
-    GPIO.setup(SPIMISO, GPIO.IN)
-    GPIO.setup(SPICLK, GPIO.OUT)
-    GPIO.setup(SPICS, GPIO.OUT)
-    mcp = Adafruit_MCP3008.MCP3008(clk=SPICLK, cs=SPICS, mosi=SPIMOSI, miso=SPIMISO)
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(SPIMOSI, GPIO.OUT)
+        GPIO.setup(SPIMISO, GPIO.IN)
+        GPIO.setup(SPICLK, GPIO.OUT)
+        GPIO.setup(SPICS, GPIO.OUT)
+	mcp = Adafruit_MCP3008.MCP3008(clk=SPICLK, cs=SPICS, mosi=SPIMOSI, miso=SPIMISO)
 
 	pot_adc = mcp.read_adc(0)
 	potV = round((pot_adc/1024.0)*3.3, 2)
