@@ -35,7 +35,8 @@ def main():
 			#print("Device is now in secure mode")
 
 			if (len(log) >=1):
-				count = time.time()
+				
+				print(count)
 				current = getData()
 				if (current != log[-1] +0.1 or current != log[-1] -0.1):
 					if (current > log[len(log)-1]):
@@ -43,12 +44,15 @@ def main():
 						if (dirr[-1]!="left"):
 							print("left")
 							dirr.append("left")
+							count = time.time()
 					else:
 
 						if (dirr[-1]!="right"):
 							print("right")
 							dirr.append("right")
+							count = time.time()
 				timer = round(time.time()-count,0)
+				print(timer)
 				if (timer > 1):
 					print(dirr)
 		else:
