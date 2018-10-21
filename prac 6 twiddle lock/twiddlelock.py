@@ -118,16 +118,16 @@ def directionsToCodeSEC(dirr):
 
 	for i in new:
    		if (priv != i):
-       		string = string +str(c)
-       		c =0
+			string = string +str(c)
+       			c =0
    		if (i == "left" and c ==0):
-       		string = string + "L"
+       			string = string + "L"
    		if (i == "right" and c ==0):
-       		string = string + "R"
+       			string = string + "R"
    		if (i == "left"):
-       		c+=1
+       			c+=1
    		if (i == "right"):
-       		c +=1
+       			c +=1
    		priv = i
 	return string
 
