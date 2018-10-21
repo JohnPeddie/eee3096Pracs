@@ -31,7 +31,7 @@ def main():
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
 	GPIO.add_event_detect(mode, GPIO.FALLING, callback=toggleMode, bouncetime=200)
 	
-	while (0):
+	while (1):
 		while(running == 0):
 
 			if (lockMode & 1):#odd therefore secure
