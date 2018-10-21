@@ -6,12 +6,12 @@ import Adafruit_MCP3008 #required library for adc, see prac sheet for how to ins
 
 #global varialbles:
 sline = 23
-toggleMode = 24
+mode = 24
 lline = 22
 uline = 27
 mode = 0
 log=[]
-dir=[]
+dirr=[]
 
 #ADC PINS
 SPICLK = 11
@@ -21,9 +21,9 @@ SPICS = 8
 
 
 def main():
-	global sline,toggleMode,uline,lline,log,dir
+	global sline,mode,uline,lline,log,dirr
 	state = "locked"
-	initPins(sline, toggleMode, uline, lline)
+	initPins(sline, mode, uline, lline)
 	#initADC()
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
 	GPIO.add_event_detect(toggleMode, GPIO.FALLING, callback=toggleMode, bouncetime=200)
@@ -41,9 +41,9 @@ def main():
 			#dir.append(Adcdirection)
 
 def clearHistory(channel):
-	global log,dir
+	global log,dirr
 	log = []
-	dir = []
+	dirr = []
 
 def toggleMode(channel):
 	global mode
@@ -55,7 +55,7 @@ def initPins(sline, toggleMode, uline, lline):
 	#initialise all the pins
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(sline, GPIO.IN, pull_up_down=GPIO.PUD_UP) #eg of a pin being initialised
-	GPIO.setup(toggleMode, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+	GPIO.setup(mode, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 	GPIO.setup(lline, GPIO.OUT)
 	GPIO.setup(uline, GPIO.OUT)
 	print("Pins initialised")
