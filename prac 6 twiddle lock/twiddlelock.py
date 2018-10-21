@@ -11,7 +11,7 @@ lline = 22
 uline = 27
 lockMode = 0
 log=[]
-dirr=[]
+dirr=[""]
 startpoint = 0
 #ADC PINS
 SPICLK = 11
@@ -37,13 +37,17 @@ def main():
 			if (len(log) >=1):
 				count = time.time()
 				current = getData()
-				if (current != log[len(log)-1] +0.1 or current != log[len(log)-1] -0.1):
+				if (current != log[-1] +0.1 or current != log[-1] -0.1):
 					if (current > log[len(log)-1]):
-						dirr.append("left")
-						print("left")
+
+						if (dirr[-1]!="left"):
+							print("left")
+							dirr.append("left")
 					else:
-						dirr.append("Right")
-						print("Right")
+
+						if (dirr[-1]!="right"):
+							print("right")
+							dirr.append("right")
 				timer = round(time.time()-count,0)
 				if (timer > 1):
 					print(dirr)
