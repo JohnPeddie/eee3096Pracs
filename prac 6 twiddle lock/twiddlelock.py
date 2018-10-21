@@ -7,8 +7,8 @@ import Adafruit_MCP3008 #required library for adc, see prac sheet for how to ins
 #global varialbles:
 sline = 23
 toggleMode = 24
-lline =
-uline =
+lline = 22
+uline = 27
 mode = 0
 log=[]
 dir=[]
@@ -24,7 +24,7 @@ def main():
 	global sline,toggleMode,uline,lline,log,dir
 	state = "locked"
 	initPins(sline, toggleMode, uline, lline)
-	initADC()
+	#initADC()
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
 	GPIO.add_event_detect(toggleMode, GPIO.FALLING, callback=toggleMode, bouncetime=200)
 
