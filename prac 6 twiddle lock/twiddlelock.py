@@ -36,9 +36,10 @@ def main():
 
 			if (len(log) >=1):
 				
-				print(count)
+				
 				current = getData()
 				if (current != log[-1] +0.1 or current != log[-1] -0.1):
+					count = time.time()
 					if (current > log[len(log)-1]):
 
 						if (dirr[-1]!="left"):
@@ -51,6 +52,7 @@ def main():
 							print("right")
 							dirr.append("right")
 							count = time.time()
+					
 				timer = round(time.time()-count,0)
 				print(timer)
 				if (timer > 1):
