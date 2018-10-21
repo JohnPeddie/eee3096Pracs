@@ -9,10 +9,10 @@ sline = 23
 mode = 24
 lline = 22
 uline = 27
-mode = 0
+lockMode = 0
 log=[]
 dirr=[]
-
+startpoint = 0
 #ADC PINS
 SPICLK = 11
 SPIMISO = 9
@@ -21,7 +21,7 @@ SPICS = 8
 
 
 def main():
-	global sline,mode,uline,lline,log,dirr
+	global sline,mode,uline,lline,log,dirr,startpoint,lockMode
 	state = "locked"
 	initPins(sline, mode, uline, lline)
 	#initADC()
@@ -30,23 +30,28 @@ def main():
 
 
 	while(1):
-		print(getData())
+		if (lockMode & 1):#odd therefore secure
+			#print("Device is now in secure mode")
+			current = getData()
+			if (current > log[len(log)-1]):
+				dirr.append("left")
+				print("left")
+			else:
+				dirr.append("Right")
+				print("Right")
+		else:
+			#print("Device is now in unsecure mode")
+			print("unsecure")
 		time.sleep(1)
-		#if (mode & 1):#odd therefore secure
-			#do secure stuff
-		#else:
-			#do unsecure stuff
-			#adc turns
-			#log.append(adcTime)
-			#dir.append(Adcdirection)
-
 def clearHistory(channel):
-	global log,dirr
-	log = []
+	global log,dirr,startpoint
+	startpoint = getData()
+	log = [startpoint]
 	dirr = []
 
 def toggleMode(channel):
 	global mode
+	print("Mode changed")
 	mode +=1
 
 
