@@ -45,12 +45,13 @@ def main():
 		time.sleep(1)
 def clearHistory(channel):
 	global log,dirr,startpoint
+	print("sline pressed")
 	startpoint = getData()
 	log = [startpoint]
 	dirr = []
 
 def toggleMode(channel):
-	global mode
+	global lockMode
 	print("Mode changed")
 	lockMode +=1
 
