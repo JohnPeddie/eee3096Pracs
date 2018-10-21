@@ -30,7 +30,8 @@ def main():
 
 
 	while(1):
-
+		print(getData())
+		time.sleep(1)
 		if (mode & 1):#odd therefore secure
 			#do secure stuff
 		else:
@@ -43,7 +44,7 @@ def clearHistory(channel):
 	global log,dir
 	log = []
 	dir = []
-		
+
 def toggleMode(channel):
 	global mode
 	mode +=1
@@ -58,6 +59,21 @@ def initPins(sline, toggleMode, uline, lline):
 	GPIO.setup(lline, GPIO.OUT)
 	GPIO.setup(uline, GPIO.OUT)
 	print("Pins initialised")
+
+def getData():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(SPIMOSI, GPIO.OUT)
+    GPIO.setup(SPIMISO, GPIO.IN)
+    GPIO.setup(SPICLK, GPIO.OUT)
+    GPIO.setup(SPICS, GPIO.OUT)
+    mcp = Adafruit_MCP3008.MCP3008(clk=SPICLK, cs=SPICS, mosi=SPIMOSI, miso=SPIMISO)
+
+	pot_adc = mcp.read_adc(0)
+	potV = round((pot_adc/1024.0)*3.3, 2)
+
+
+
+	return potV
 
 
 def Sort(combination):
