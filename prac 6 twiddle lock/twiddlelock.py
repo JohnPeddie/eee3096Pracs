@@ -62,7 +62,7 @@ def main():
 						#print("break")
 						dirr.append("break")
 					if (time.time()-count >endpause):
-						print("code entered")
+						print("code entered: "+ directionsToCodeSEC(dirr))
 						if (directionsToCodeSEC(dirr)==masterCode):
 							print("unlocked")
 							playSound("enginestart.mp3")
@@ -96,7 +96,7 @@ def main():
 							dirr.append("right")
 							count = time.time()
 					if (time.time()-count >endpause):
-						print("code entered")
+						print("code entered "+ directionsToCodeUNSEC(directionsToCodeSEC(dirr)))
 						if (directionsToCodeUNSEC(directionsToCodeSEC(dirr))==(directionsToCodeUNSEC(masterCode))):
 							print("unlocked")
 							playSound("enginestart.mp3")
