@@ -3,6 +3,7 @@ import datetime
 import time
 import RPi.GPIO as GPIO
 import Adafruit_MCP3008 #required library for adc, see prac sheet for how to install adafruit
+import pygame
 
 #global varialbles:
 sline = 23
@@ -30,7 +31,7 @@ def main():
 	#initADC()
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
 	GPIO.add_event_detect(mode, GPIO.FALLING, callback=toggleMode, bouncetime=200)
-	
+
 	while (1):
 		while(running == 0):
 
@@ -59,13 +60,14 @@ def main():
 						print("code entered")
 						if (directionsToCodeSEC(dirr)==masterCode):
 							print("unlocked")
+							playSound("enginestart.mp3")
 							running = 1
-							
+
 						else:
 							print("code incorrect")
 							running =1
-						
-					
+
+
 
 			else:
 				#print("Device is now in unsecure mode")
@@ -86,6 +88,13 @@ def toggleMode(channel):
 	global lockMode
 	print("Mode changed")
 	lockMode +=1
+
+def playSound(file):
+	pygame.init()
+	pygame.mixer.init()
+	pygame.mixer.music.load(file)
+	pygame.mixer.music.play()
+	pygame.event.wait()
 
 
 
