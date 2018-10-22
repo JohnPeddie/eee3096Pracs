@@ -45,7 +45,7 @@ def main():
 
 
 					current = getData()
-					if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
+					if ((current > (log[-1] +0.2) or current < (log[-1] -0.2)) and (time.time()-count >= 0.1)):
 						checkCode=1
 
 						if (current > log[-1]):
@@ -83,7 +83,7 @@ def main():
 
 
 					current = getData()
-					if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
+					if ((current > (log[-1] +0.2) or current < (log[-1] -0.2)) and (time.time()-count >= 0.1)):
 						checkCode =1
 
 						if (current > log[-1]):
