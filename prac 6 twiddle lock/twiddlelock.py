@@ -58,6 +58,7 @@ def main():
 							dirr.append("right")
 							count = time.time()
 					if (time.time()-count > pause):
+						print("break")
 						dirr.append("break")
 					if (time.time()-count >1):
 						print("code entered")
