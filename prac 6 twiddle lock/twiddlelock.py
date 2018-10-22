@@ -146,7 +146,7 @@ def playSound(file):
 
 def changeState(lockedOrUnlocked):
 	if (lockedOrUnlocked == "locked"):
-		GPIO.output(unline, False)
+		GPIO.output(uline, False)
 		GPIO.output(lline, True)
 	else:
 		GPIO.output(lline, False)
