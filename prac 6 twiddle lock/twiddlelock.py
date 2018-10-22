@@ -97,7 +97,7 @@ def main():
 							count = time.time()
 					if (time.time()-count >endpause):
 						print("code entered")
-						if (directionsToCodeUNSEC(directionsToCodeSEC(dirr))==(directionsToCodeUNSEC(masterCode)):
+						if (directionsToCodeUNSEC(directionsToCodeSEC(dirr))==(directionsToCodeUNSEC(masterCode))):
 							print("unlocked")
 							playSound("enginestart.mp3")
 							running = 1
