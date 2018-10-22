@@ -27,6 +27,7 @@ SPICS = 8
 def main():
 	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode,running
 	state = "locked"
+	pause = 0.5
 	initPins(sline, mode, uline, lline)
 	#initADC()
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
@@ -56,6 +57,8 @@ def main():
 							print("right")
 							dirr.append("right")
 							count = time.time()
+					if (time.time()-count > pause):
+						dirr.append("break")
 					if (time.time()-count >1):
 						print("code entered")
 						if (directionsToCodeSEC(dirr)==masterCode):
@@ -65,13 +68,42 @@ def main():
 
 						else:
 							print("code incorrect")
+							playSound("fail.mp3")
 							running =1
 
 
 
 			else:
 				#print("Device is now in unsecure mode")
-				print("unsecure")
+				if (len(log) >=1):
+
+
+					current = getData()
+					if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
+
+						if (current > log[-1]):
+
+							log.append(current)
+							print("left")
+							dirr.append("left")
+							count = time.time()
+						elif (current < log[-1]):
+
+							log.append(current)
+							print("right")
+							dirr.append("right")
+							count = time.time()
+					if (time.time()-count >1):
+						print("code entered")
+						if (directionsToCodeUNSEC(dirr)==masterCode):
+							print("unlocked")
+							playSound("enginestart.mp3")
+							running = 1
+
+						else:
+							print("code incorrect")
+							playSound("fail.mp3")
+							running =1
 
 def clearHistory(channel):
 	global log,dirr,startpoint,count,running
@@ -94,7 +126,7 @@ def playSound(file):
 	pygame.mixer.init()
 	pygame.mixer.music.load(file)
 	pygame.mixer.music.play()
-	
+
 
 
 
@@ -132,7 +164,7 @@ def directionsToCodeSEC(dirr):
 	string = ""
 
 	for i in new:
-   		if (priv != i):
+   		if (priv != i and i != "break"):
 			string = string +str(c)
        			c =0
    		if (i == "left" and c ==0):
@@ -145,6 +177,9 @@ def directionsToCodeSEC(dirr):
        			c +=1
    		priv = i
 	return string
+
+def directionsToCodeUNSEC(dirr):
+	return ""
 
 
 def Sort(combination):
