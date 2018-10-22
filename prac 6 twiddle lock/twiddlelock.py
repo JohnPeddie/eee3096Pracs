@@ -28,6 +28,7 @@ def main():
 	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode,running
 	state = "locked"
 	pause = 0.5
+	endpause = 1
 	initPins(sline, mode, uline, lline)
 	#initADC()
 	GPIO.add_event_detect(sline, GPIO.FALLING, callback=clearHistory, bouncetime=200)
@@ -58,9 +59,9 @@ def main():
 							dirr.append("right")
 							count = time.time()
 					if (time.time()-count > pause):
-						print("break")
+						#print("break")
 						dirr.append("break")
-					if (time.time()-count >1):
+					if (time.time()-count >endpause):
 						print("code entered")
 						if (directionsToCodeSEC(dirr)==masterCode):
 							print("unlocked")
@@ -94,9 +95,9 @@ def main():
 							print("right")
 							dirr.append("right")
 							count = time.time()
-					if (time.time()-count >1):
+					if (time.time()-count >endpause):
 						print("code entered")
-						if (directionsToCodeUNSEC(dirr)==masterCode):
+						if (directionsToCodeUNSEC(directionsToCodeSEC(dirr))==(directionsToCodeUNSEC(masterCode)):
 							print("unlocked")
 							playSound("enginestart.mp3")
 							running = 1
@@ -119,8 +120,11 @@ def clearHistory(channel):
 
 def toggleMode(channel):
 	global lockMode
-	print("Mode changed")
 	lockMode +=1
+	if (lockMode & 1):
+		print("Mode changed to Secure mode")
+	else:
+		print("Mode changed to Unsecure mode")
 
 def playSound(file):
 	pygame.init()
@@ -179,8 +183,17 @@ def directionsToCodeSEC(dirr):
    		priv = i
 	return string
 
-def directionsToCodeUNSEC(dirr):
-	return ""
+def directionsToCodeUNSEC(actualString):
+	#L4R4L4 - X4X4X4
+	#L3R2L5L6 - X2X3X5X6
+	sortedString = ""
+	sortedCode = Sort(list(actualString))
+	for q in sortedCode:
+	    if (q != 'L' and q != 'R'):
+	        sortedString+= q
+
+
+	return sortedString
 
 
 def Sort(combination):
