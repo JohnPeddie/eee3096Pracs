@@ -18,6 +18,7 @@ count = time.time()
 masterCode = "L4R4L4"
 running = 0
 checkCode =0
+state = "locked"
 #ADC PINS
 SPICLK = 11
 SPIMISO = 9
@@ -27,7 +28,6 @@ SPICS = 8
 
 def main():
 	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode,running,checkCode
-	state = "locked"
 	pause = 0.5
 	endpause = 1
 	initPins(sline, mode, uline, lline)
@@ -67,11 +67,13 @@ def main():
 						print("code entered: "+ directionsToCodeSEC(dirr))
 						if (directionsToCodeSEC(dirr)==masterCode):
 							print("unlocked")
+							changeState("unlocked")
 							playSound("enginestart.mp3")
 							running = 1
 
 						else:
 							print("code incorrect")
+							changeState("locked")
 							playSound("fail.mp3")
 							running =1
 
@@ -106,11 +108,13 @@ def main():
 						print("code entered "+ directionsToCodeUNSEC(directionsToCodeSEC(dirr)))
 						if (directionsToCodeUNSEC(directionsToCodeSEC(dirr))==(directionsToCodeUNSEC(masterCode))):
 							print("unlocked")
+							changeState("unlocked")
 							playSound("enginestart.mp3")
 							running = 1
 
 						else:
 							print("code incorrect")
+							changeState("locked")
 							playSound("fail.mp3")
 							running =1
 
@@ -140,16 +144,28 @@ def playSound(file):
 	pygame.mixer.music.load(file)
 	pygame.mixer.music.play()
 
+def changeState(lockedOrUnlocked):
+	if (lockedOrUnlocked == "locked"):
+		GPIO.output(unline, False)
+		GPIO.output(lline, True)
+	else:
+		GPIO.output(lline, False)
+		GPIO.output(uline, True)
 
 
 
 def initPins(sline, toggleMode, uline, lline):
 	#initialise all the pins
+	global state
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(sline, GPIO.IN, pull_up_down=GPIO.PUD_UP) #eg of a pin being initialised
 	GPIO.setup(mode, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 	GPIO.setup(lline, GPIO.OUT)
 	GPIO.setup(uline, GPIO.OUT)
+	GPIO.output(uline, GPIO.LOW)
+	GPIO.output(lline, GPIO.LOW)
+	changeState(state)
+
 	print("Pins initialised")
 
 def getData():
