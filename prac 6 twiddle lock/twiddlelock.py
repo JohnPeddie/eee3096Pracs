@@ -17,6 +17,7 @@ startpoint = 0
 count = time.time()
 masterCode = "L4R4L4"
 running = 0
+checkCode =0
 #ADC PINS
 SPICLK = 11
 SPIMISO = 9
@@ -25,7 +26,7 @@ SPICS = 8
 
 
 def main():
-	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode,running
+	global sline,mode,uline,lline,log,dirr,startpoint,lockMode,count,masterCode,running,checkCode
 	state = "locked"
 	pause = 0.5
 	endpause = 1
@@ -45,6 +46,7 @@ def main():
 
 					current = getData()
 					if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
+						checkCode=1
 
 						if (current > log[-1]):
 
@@ -58,10 +60,10 @@ def main():
 							print("right")
 							dirr.append("right")
 							count = time.time()
-					if (time.time()-count > pause):
+					if (time.time()-count > pause and checkCode == 1):
 						#print("break")
 						dirr.append("break")
-					if (time.time()-count >endpause):
+					if (time.time()-count >endpause and checkCode == 1):
 						print("code entered: "+ directionsToCodeSEC(dirr))
 						if (directionsToCodeSEC(dirr)==masterCode):
 							print("unlocked")
@@ -82,6 +84,7 @@ def main():
 
 					current = getData()
 					if (current > (log[-1] +0.2) or current < (log[-1] -0.2)):
+						checkCode =1
 
 						if (current > log[-1]):
 
@@ -95,7 +98,11 @@ def main():
 							print("right")
 							dirr.append("right")
 							count = time.time()
-					if (time.time()-count >endpause):
+
+					if (time.time()-count > pause and checkCode == 1):
+						#print("break")
+						dirr.append("break")
+					if (time.time()-count >endpause and checkCode == 1):
 						print("code entered "+ directionsToCodeUNSEC(directionsToCodeSEC(dirr)))
 						if (directionsToCodeUNSEC(directionsToCodeSEC(dirr))==(directionsToCodeUNSEC(masterCode))):
 							print("unlocked")
@@ -108,13 +115,14 @@ def main():
 							running =1
 
 def clearHistory(channel):
-	global log,dirr,startpoint,count,running
+	global log,dirr,startpoint,count,running,checkCode
 	print("sline pressed")
 	startpoint = getData()
 	log = [startpoint]
 	dirr = [""]
 	count = time.time()
 	running = 0
+	checkCode = 0
 
 
 
